@@ -22,7 +22,7 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - odh-dashboard
+                        - rhods-dashboard
                 topologyKey: topology.kubernetes.io/zone
       serviceAccount: rhods-dashboard
       containers:
