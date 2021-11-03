@@ -9,7 +9,7 @@ data:
 
   jupyterhub_admins: "admin"
   gpu_mode: ""
-  singleuser_pvc_size: 2Gi
+  singleuser_pvc_size: 20Gi
   notebook_destination: "$(notebook_destination)"
 
 ---
