@@ -73,6 +73,19 @@ spec:
         name: manifests
         path: odh-notebook-controller
     name: odh-notebook-controller
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: model-mesh
+    name: model-mesh
+  - kustomizeConfig:
+      overlays:
+        - metadata-store-mysql
+        - ml-pipeline-ui
+      repoRef:
+        name: manifests
+        path: ml-pipelines
+    name: ml-pipelines
   repos:
   - name: kf-manifests
     uri: https://github.com/opendatahub-io/manifests/tarball/master

@@ -1,0 +1,46 @@
+apiVersion: kfdef.apps.kubeflow.org/v1
+kind: KfDef
+metadata:
+  name: pipelines
+  namespace: odh-applications
+spec:
+  applications:
+    - kustomizeConfig:
+        repoRef:
+          name: manifests
+          path: odh-common
+      name: odh-common
+    - kustomizeConfig:
+        repoRef:
+          name: manifests
+          path: jupyterhub/jupyterhub
+      name: jupyterhub
+    - kustomizeConfig:
+        overlays:
+          - additional
+        repoRef:
+          name: manifests
+          path: jupyterhub/notebook-images
+      name: notebook-images
+    - kustomizeConfig:
+        overlays:
+          - authentication
+          # Uncomment the odhdashboard overlay below to have the operator deploy the configs
+          # This should be removed from the deployed kfdef immediately after the operator deploys the configs
+          # This will prevent the operator from reconciling the configs when they have been modified externally
+          #- odhdashboardconfig
+        repoRef:
+          name: manifests
+          path: odh-dashboard
+      name: odh-dashboard
+    - kustomizeConfig:
+        overlays:
+          - metadata-store-mysql
+          - ml-pipeline-ui
+        repoRef:
+          name: manifests
+          path: ml-pipelines
+      name: ml-pipelines
+  repos:
+    - name: manifests
+      uri: "https://github.com/opendatahub-io/odh-manifests/tarball/master"

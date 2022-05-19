@@ -1,0 +1,37 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../base
+
+resources:
+  # Roles
+  - ./roles/ml-pipeline-ui.yaml
+
+  # Rolebindings
+  - ./rolebindings/ml-pipeline-ui.yaml
+  - ./rolebindings/auth-delegator.yaml
+
+  # ServiceAccounts
+  - ./serviceaccounts/ml-pipeline-ui.yaml
+
+  # Configmaps
+  - ./configmaps/ml-pipeline-ui-configmap.yaml
+
+  # Deployments
+  - ./deployments/ml-pipeline-ui.yaml
+
+  # Services
+  - ./services/ml-pipeline-ui.yaml
+
+  # Routes
+  - ./routes/ml-pipeline-ui.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+images:
+  - name: frontend
+    newName: quay.io/internaldatahub/frontend
+    newTag: 1.1.0
