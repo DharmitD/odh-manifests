@@ -27,6 +27,7 @@ Open Data Hub is an end-to-end AI/ML platform on top of OpenShift Container Plat
     * [Thrift Server](thriftserver/README.md)
 * [Trino](trino/README.md)
 * [ODH Notebook Controller](odh-notebook-controller/README.md)
+* [ML Pipelines](ml-pipelines/README.md)
 
 ## Deploy
 
