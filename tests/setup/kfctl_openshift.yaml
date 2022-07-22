@@ -71,9 +71,23 @@ spec:
         name: manifests
         path: odh-notebook-controller
     name: odh-notebook-controller
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: model-mesh
+    name: model-mesh
+  - kustomizeConfig:
+      overlays:
+        - metadata-store-mysql
+      repoRef:
+        name: pipeline-manifests
+        path: kfp-tekton
+    name: kfp-tekton
   repos:
   - name: kf-manifests
     uri: https://github.com/opendatahub-io/manifests/tarball/master
   - name: manifests
     uri: https://github.com/opendatahub-io/odh-manifests/tarball/master
+  - name: pipeline-manifests
+    uri: https://github.com/opendatahub-io/odh-manifests/tarball/pipelines-prototype
   version: master
