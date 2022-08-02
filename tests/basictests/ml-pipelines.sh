@@ -47,6 +47,17 @@ function check_run_status() {
     os::cmd::try_until_text "curl ${SVC}/apis/v1beta1/runs/${RUN_ID} | jq '.run.status'" "Completed" $odhdefaulttimeout $odhdefaultinterval
 }
 
+function setup_monitoring() {
+    header "Enabling User Workload Monitoring on the cluster"
+    oc apply -f ${RESOURCEDIR}/modelmesh/enable-uwm.yaml
+}
+
+function test_metrics() {
+    header "Checking metrics for total number of runs, should be 1 since we have spun up 1 run"
+    monitoring_token=`oc sa get-token prometheus-k8s -n openshift-monitoring`
+    os::cmd::try_until_text "oc -n openshift-monitoring exec -c prometheus prometheus-k8s-0 -- curl -k -H \"Authorization: Bearer $monitoring_token\" 'https://thanos-querier.openshift-monitoring.svc:9091/api/v1/query?query=run_server_run_count' | jq '.data.result[0].value[1]'" "1" $odhdefaulttimeout $odhdefaultinterval
+}
+
 function delete_runs() {
     header "Deleting runs"
     os::cmd::try_until_text "curl -X DELETE ${SVC}/apis/v1beta1/runs/${RUN_ID} | jq" "" $odhdefaulttimeout $odhdefaultinterval
@@ -68,6 +79,8 @@ list_pipelines
 create_run
 list_runs
 check_run_status
+setup_monitoring
+test_metrics
 delete_runs
 delete_pipeline
 

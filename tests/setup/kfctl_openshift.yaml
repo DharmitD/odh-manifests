@@ -81,8 +81,8 @@ spec:
         - metadata-store-mysql
       repoRef:
         name: pipeline-manifests
-        path: kfp-tekton
-    name: kfp-tekton
+        path: ml-pipelines
+    name: ml-pipelines
   repos:
   - name: kf-manifests
     uri: https://github.com/opendatahub-io/manifests/tarball/master
