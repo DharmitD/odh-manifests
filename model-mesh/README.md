@@ -32,3 +32,39 @@ Example ServingRuntime and Predictors can be found at:  https://github.com/kserv
 ### Overlays
 
 None
+
+### Installation process
+
+Following are the steps to install Model Mesh as a part of OpenDataHub install:
+
+1. Install the OpenDataHub operator
+2. Create a KfDef that includes the model-mesh component with the odh-model-controller overlay.
+   
+```
+apiVersion: kfdef.apps.kubeflow.org/v1
+kind: KfDef
+metadata:
+  name: opendatahub
+  namespace: opendatahub
+spec:
+  applications:
+    - kustomizeConfig:
+        repoRef:
+          name: manifests
+          path: odh-common
+      name: odh-common
+    - kustomizeConfig:
+        overlays:
+          - odh-model-controller
+        repoRef:
+          name: manifests
+          path: model-mesh
+      name: model-mesh
+  repos:
+    - name: manifests
+      uri: https://api.github.com/repos/opendatahub-io/odh-manifests/tarball/master
+  version: master
+
+```
+
+3. You can now create a new project and create a Predictor CR.
