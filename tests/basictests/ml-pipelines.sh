@@ -12,7 +12,9 @@ os::test::junit::declare_suite_start "$MY_SCRIPT"
 function check_resources() {
     header "Testing ML pipelines installation"
     os::cmd::expect_success "oc project ${ODHPROJECT}"
-    os::cmd::try_until_text "oc get pods -l application-crd-id=kubeflow-pipelines --field-selector='status.phase=Running' -o jsonpath='{$.items[*].metadata.name}' | wc -w" "10" $odhdefaulttimeout $odhdefaultinterval
+    os::cmd::try_until_text "oc get pods -l application-crd-id=kubeflow-pipelines --field-selector='status.phase!=Running,status.phase!=Completed' -o jsonpath='{$.items[*].metadata.name}' | wc -w" "0" $odhdefaulttimeout $odhdefaultinterval
+    running_pods=$(oc get pods -l application-crd-id=kubeflow-pipelines --field-selector='status.phase=Running' -o jsonpath='{$.items[*].metadata.name}' | wc -w)
+    os::cmd::expect_success "if [ "$running_pods" -gt "0" ]; then exit 0; else exit 1; fi"
 }
 
 function check_ui_overlay() {
