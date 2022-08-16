@@ -35,15 +35,9 @@ resources:
   - ./serviceaccounts/ml-pipeline.yaml
   - ./serviceaccounts/pipeline-runner.yaml
 
-  # Secrets
-  - ./secrets/mlpipeline-minio-artifact.yaml
-
   # Configmaps
   - ./configmaps/kfp-tekton-config.yaml
   - ./configmaps/pipeline-install-config.yaml
-
-  # PersistentVolumeClaims
-  - ./persistentvolumeclaims/minio-pvc.yaml
 
   # Deployments
   - ./deployments/metadata-envoy-deployment.yaml
@@ -53,7 +47,6 @@ resources:
   - ./deployments/ml-pipeline-scheduledworkflow.yaml
   - ./deployments/ml-pipeline-viewer-crd.yaml
   - ./deployments/ml-pipeline-visualizationserver.yaml
-  - ./deployments/minio.yaml
   - ./deployments/ml-pipeline.yaml
 
   # Services
@@ -61,7 +54,6 @@ resources:
   - ./services/metadata-grpc-service.yaml
   - ./services/ml-pipeline-visualizationserver.yaml
   - ./services/ml-pipeline.yaml
-  - ./services/minio.yaml
 
   # Monitoring
   - ../prometheus

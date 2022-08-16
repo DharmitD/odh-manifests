@@ -40,6 +40,7 @@ This directory contains artifacts for deploying all backend components of ML Pip
 1. metadata-store-mysql: This overlay contains artifacts for deploying a MySQL database. MySQL is currently the only supported backend for ML Pipelines, so if you don't have an existing MySQL database deployed, this overlay needs to be applied.
 2. metadata-store-postgresql: This overlay contains artifacts for deploying a PostgreSQL database. ML Pipelines does not currently support PostgreSQL as a backend, so deploying this overlay will not actually modify ML Pipelines behaviour.
 3. ml-pipeline-ui: This overlay contains deployment artifacts for the ML Pipelines UI. Deploying ML Pipelines without this overlay will result in only the backend artifacts being created.
+4. object-store-minio: This overlay contains artifacts for deploying Minio as the Object Store to store Pipelines artifacts.
 
 ### Prometheus
 

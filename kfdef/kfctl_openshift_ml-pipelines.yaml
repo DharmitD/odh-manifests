@@ -14,6 +14,7 @@ spec:
         overlays:
           - metadata-store-mysql
           - ml-pipeline-ui
+          - object-store-minio
         repoRef:
           name: manifests
           path: ml-pipelines
