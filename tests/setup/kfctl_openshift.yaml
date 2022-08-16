@@ -80,6 +80,7 @@ spec:
       overlays:
         - metadata-store-mysql
         - ml-pipeline-ui
+        - minio
       repoRef:
         name: manifests
         path: ml-pipelines
