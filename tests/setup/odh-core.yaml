@@ -46,16 +46,6 @@ spec:
         path: notebook-images
     name: notebook-images
   - kustomizeConfig:
-      overlays:
-        - metadata-store-mariadb
-        - ds-pipeline-ui
-        - object-store-minio
-        - default-configs
-      repoRef:
-        name: manifests
-        path: data-science-pipelines
-    name: data-science-pipelines
-  - kustomizeConfig:
       parameters:
       - name: monitoring-namespace
         value: opendatahub
