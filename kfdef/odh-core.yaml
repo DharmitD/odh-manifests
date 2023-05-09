@@ -62,6 +62,11 @@ spec:
         name: manifests
         path: modelmesh-monitoring
     name: modelmesh-monitoring
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: data-science-pipelines-operator/
+    name: data-science-pipelines-operator
   repos:
   - name: manifests
     uri: https://github.com/opendatahub-io/odh-manifests/tarball/master
