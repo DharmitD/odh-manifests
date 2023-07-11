@@ -13,7 +13,7 @@ jobs:
       - name: Checkout odh-manifests repository
         uses: actions/checkout@v2
         with:
-          repository: opendatahub-io/odh-manifests
+          repository: DharmitD/odh-manifests
           ref: main
 
       - name: Setup Git
@@ -23,7 +23,7 @@ jobs:
 
       - name: Clone data-science-pipelines-operator repository
         run: |
-          git clone https://github.com/opendatahub-io/data-science-pipelines-operator.git
+          git clone https://github.com/DharmitD/data-science-pipelines-operator.git
           cd data-science-pipelines-operator
           git checkout ${{ github.ref }}
           cd ..
