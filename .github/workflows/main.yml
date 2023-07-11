@@ -1,0 +1,50 @@
+name: Sync Manifests
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  sync_manifests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout odh-manifests repository
+        uses: actions/checkout@v2
+        with:
+          repository: opendatahub-io/odh-manifests
+          ref: main
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Clone data-science-pipelines-operator repository
+        run: |
+          git clone https://github.com/opendatahub-io/data-science-pipelines-operator.git
+          cd data-science-pipelines-operator
+          git checkout ${{ github.ref }}
+          cd ..
+
+      - name: Sync manifests
+        run: |
+          rsync -av --delete data-science-pipelines-operator/config/ odh-manifests/data-science-pipelines-operator/
+
+      - name: Commit and push changes
+        run: |
+          cd odh-manifests
+          git add .
+          git commit -m "Sync data-science-pipelines-operator manifests"
+          git push origin main
+
+      - name: Create Pull Request
+        uses: repo-sync/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "sync-manifests-${{ github.run_id }}"
+          title: Sync data-science-pipelines-operator manifests
+          body: |
+            This pull request is automatically generated to sync the `data-science-pipelines-operator` manifests from the `data-science-pipelines-operator` repository.
+          base: main
